@@ -10,6 +10,7 @@ package cl.ciisa.masterDB;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,6 +49,16 @@ public class dbHelpers {
 	}
 	
 	/*INSERT*/
+	//ContentValues nuevoRegistro = new ContentValues();
+	//nuevoRegistro.put("codigo", "6");
+	//nuevoRegistro.put("nombre","usuariopru");
+	public long insertTAble(String table,ContentValues params) {
+		//this.insertStmtTypeAccounts.bindString(1, name);
+		//this.insertStmtTypeAccounts.bindLong(2, state);
+		this.db.insert(table, null, params);
+		return this.insertStmtTypeAccounts.executeInsert();
+	}
+	
 	public long insertTypeAccount(String name,int state) {
 		this.insertStmtTypeAccounts.bindString(1, name);
 		this.insertStmtTypeAccounts.bindLong(2, state);
@@ -94,6 +105,14 @@ public class dbHelpers {
 		this.insertStmtAccounts.bindString(8, updated);
 		this.insertStmtAccounts.bindLong(9, state);
 		return this.insertStmtAccounts.executeInsert();
+	}
+	
+	//UPDATED
+	//ContentValues valores = new ContentValues();
+	//valores.put("nombre","usunuevo");
+	public boolean updateTable(String table,ContentValues params,String _where) {
+		this.db.update(table,params,_where,null);
+		return true;
 	}
 	
 	   
