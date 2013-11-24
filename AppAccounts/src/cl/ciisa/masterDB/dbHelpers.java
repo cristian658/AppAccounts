@@ -116,10 +116,11 @@ public class dbHelpers {
 	}
 	
 	   
-	/*SELECT*/	  
-	public List<String> selectInner(String _table,String _where) {
+	/*SELECT*/	
+	public List<String> selectAllOne(String _table,String _where, String[] rows,String _options) {
 		List<String> list = new ArrayList<String>();
-		Cursor cursor = this.db.query(TABLE_NAME, new String[] { "name" }, null, null, null, null, "name desc");
+		if(_options=="" || _options==null) _options="id DESC";
+		Cursor cursor = this.db.query(_table,rows, _where, null, null, null, _options);
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(cursor.getString(0)); 
@@ -131,9 +132,10 @@ public class dbHelpers {
 	    return list;
 	}
 	
-	public List<String> Find(String params) {
+	public List<String> FindOne(String _table,String _where, String[] rows,String _options) {
 		List<String> list = new ArrayList<String>();
-		Cursor cursor = this.db.query(TABLE_NAME, new String[] { "name","password" },params,null, null, null, "id desc limit 1");
+		if(_options=="" || _options==null) _options="id DESC LIMIT 1";
+		Cursor cursor = this.db.query(_table,rows,_where,null, null, null, _options);
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(cursor.getString(0)); 
