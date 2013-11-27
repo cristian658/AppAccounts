@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="title_activity_login">AppAccounts</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in_register"><b>Ingresar</b> o Registrarse</string>
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="action_forgot_password">Recuperar contraseña</string>
+    <string name="login_progress_signing_in">Ingresando…</string>
+    <string name="error_invalid_email">CL3582238391</string>
+    <string name="error_invalid_password">La contraseña es muy corta</string>
+    <string name="error_incorrect_password">La contraseña es incorrecta</string>
+    <string name="error_field_required">El campo es obligatorio</string>
+
+</resources>
