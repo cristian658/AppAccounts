@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
 	 * TODO: remove after connecting to a real authentication system.
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"cristian.68@gmail.com:lala", "c.fica.fica@gmail.com:lala" };
+			"cristian.68@gmail.com:paula", "c.fica.fica@gmail.com:lala" };
 
 	/**
 	 * The default email to populate the email field with.
@@ -118,12 +118,10 @@ public class LoginActivity extends Activity {
 
 		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
-			Log.d("mensaje",getString(R.string.error_field_required));
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (mPassword.length() < 4) {
-			Log.d("mensaje",getString(R.string.error_invalid_password));
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
@@ -131,7 +129,6 @@ public class LoginActivity extends Activity {
 
 		// Check for a valid email address.
 		if (TextUtils.isEmpty(mEmail)) {
-			Log.d("mensaje",getString(R.string.error_field_required));
 			mEmailView.setError(getString(R.string.error_field_required));
 			focusView = mEmailView;
 			cancel = true;

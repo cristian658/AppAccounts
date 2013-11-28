@@ -6,5 +6,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_list_account">ListAccountActivity</string>
     <string name="add">Add Accounts</string>
+    <string name="title_activity_add">AddActivity</string>
+    <string name="name">Name</string>
+    <string name="photo">Photo</string>
+    <string name="type">Type</string>
+    <string name="value">Value</string>
+    <string name="cost">Cost</string>
 
 </resources>

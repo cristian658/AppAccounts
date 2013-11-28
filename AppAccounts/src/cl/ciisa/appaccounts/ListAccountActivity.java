@@ -2,6 +2,7 @@ package cl.ciisa.appaccounts;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +17,7 @@ public class ListAccountActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_account);
 		agregarView = (Button)findViewById(R.id.agregarView);
-	
+		addListenerButton();
 		
 	}
 
@@ -32,8 +33,8 @@ public class ListAccountActivity extends Activity {
 			
 			@Override
 			public void onClick(View arg0) {
-				
-				
+				Intent myIntent = new Intent(ListAccountActivity.this,AddActivity.class);
+				ListAccountActivity.this.startActivity(myIntent);
 			}
 		});
 	}
