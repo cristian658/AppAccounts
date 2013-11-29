@@ -1,10 +1,3 @@
-/**
- * 
- */
-/**
- * @author cfica
- *
- */
 package cl.ciisa.masterDB;
 
 import java.util.ArrayList;
@@ -20,9 +13,9 @@ import android.util.Log;
 
 /**
  * Clase controladora de la base de datos.
- * @author FelipeDev
+ * @author cfica
  */
-public class dbHelpers {
+public class DBHelpers {
 	
 	private static final String DATABASE_NAME = "appAccounts.db";
 	private static final int DATABASE_VERSION = 1;
@@ -30,13 +23,13 @@ public class dbHelpers {
 	private Context context;
 	private SQLiteDatabase db; 
 	private SQLiteStatement insertStmtUser,insertStmtTypeAccounts,insertStmtCapital,insertStmtAccounts,insertStmtImgAccounts;
-	private static final String USER = "INSERT INTO type_account(name,state) values (?,?)";
-	private static final String TYPE_ACCOUNT = "INSERT INTO users(type,id_relation,name,phone,email,user,pass,created,state) values (?,?,?,?,?,?,?,?,?)";
-	private static final String CAPITAL = "INSERT INTO capital(tot_capital,created,updated,state) values (?,?,?,?)";
-	private static final String ACCOUNTS = "INSERT INTO img_account(id_account,name_img,url,state) values (?,?,?,?)";
-	private static final String IMG_ACCOUNT = "INSERT INTO accounts(id_user,id_capital,id_type,title,description,cost_account,created,updated,state) values (?,?,?,?,?,?,?,?)";
+	private static final String TYPE_ACCOUNT = "INSERT INTO type_account(name,state) values (?,?)";
+	private static final String USER = "INSERT INTO users(type,id_relation,name,phone,email,user,pass,created,state) values (?,?,?,?,?,?,?,?,?)";
+	private static final String CAPITAL = "INSERT INTO capital(tot_capital,created,updated_cap,state) values (?,?,?,?)";
+	private static final String IMG_ACCOUNT = "INSERT INTO img_account(id_account,name_img,url,state) values (?,?,?,?)";
+	private static final String ACCOUNTS = "INSERT INTO accounts(id_user,id_capital,id_type,title,description,cost_account,created,updated_acc,state) values (?,?,?,?,?,?,?,?,?)";
 	
-	public dbHelpers(Context context) {
+	public DBHelpers(Context context) {
 		this.context = context;
 	    OpenHelper openHelper = new OpenHelper(this.context);
 	    this.db = openHelper.getWritableDatabase();
@@ -60,6 +53,7 @@ public class dbHelpers {
 	}
 	
 	public long insertTypeAccount(String name,int state) {
+		Log.d("database----", name);
 		this.insertStmtTypeAccounts.bindString(1, name);
 		this.insertStmtTypeAccounts.bindLong(2, state);
 		return this.insertStmtTypeAccounts.executeInsert();
@@ -123,6 +117,7 @@ public class dbHelpers {
 		Cursor cursor = this.db.query(_table,rows, _where, null, null, null, _options);
 		if (cursor.moveToFirst()) {
 			do {
+				Log.d("-------", cursor.getString(0));
 				list.add(cursor.getString(0)); 
 			} while (cursor.moveToNext());
 		}
@@ -148,13 +143,13 @@ public class dbHelpers {
 	}
 	
 	//DELETE
-	public void deleteAll() {
-		this.db.delete(TABLE_NAME, null, null);
+	public void deleteAll(String table) {
+		this.db.delete(table, null, null);
 	}
 	
 	
 	/**
-	 * Implementación de SQLiteOpenHelper
+	 * Implementaci√≥n de SQLiteOpenHelper
 	 */
 	private static class OpenHelper extends SQLiteOpenHelper {	 
 	      
@@ -164,11 +159,11 @@ public class dbHelpers {
 	 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE type_account(id INTEGER PRIMARY KEY, name TEXT, state INTEGER)");
-			db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY, type TEXT, id_relation INTEGER, name TEXT, phone TEXT, email TEXT, user TEXT, pass TEXT, created TEXT, state INTEGER)");
-			db.execSQL("CREATE TABLE capital(id INTEGER PRIMARY KEY, tot_capital INTEGER, created TEXT, updated_cap TEXT, state INTEGER)");
-			db.execSQL("CREATE TABLE img_account(id INTEGER PRIMARY KEY, id_account INTEGER, name_img TEXT, url TEXT, state INTEGER)");
-			db.execSQL("CREATE TABLE accounts(id INTEGER PRIMARY KEY, id_user INTEGER, id_capital INTEGER, id_type INTEGER, title TEXT, description TEXT, cost_account INTEGER, created TEXT, updated_acc TEXT, state INTEGER)");
+			db.execSQL("CREATE TABLE type_account(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, state INTEGER)");
+			db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, id_relation INTEGER, name TEXT, phone TEXT, email TEXT, user TEXT, pass TEXT, created TEXT, state INTEGER)");
+			db.execSQL("CREATE TABLE capital(id INTEGER PRIMARY KEY AUTOINCREMENT, tot_capital INTEGER, created TEXT, updated_cap TEXT, state INTEGER)");
+			db.execSQL("CREATE TABLE img_account(id INTEGER PRIMARY KEY AUTOINCREMENT, id_account INTEGER, name_img TEXT, url TEXT, state INTEGER)");
+			db.execSQL("CREATE TABLE accounts(id INTEGER PRIMARY KEY AUTOINCREMENT, id_user INTEGER, id_capital INTEGER, id_type INTEGER, title TEXT, description TEXT, cost_account INTEGER, created TEXT, updated_acc TEXT, state INTEGER)");
 		    Log.d("Info","Created table success");
 		}
 	 
