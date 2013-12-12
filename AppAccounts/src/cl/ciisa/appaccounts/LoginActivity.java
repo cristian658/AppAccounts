@@ -1,11 +1,18 @@
 package cl.ciisa.appaccounts;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import cl.ciisa.masterDB.DBHelpers;
+import cl.ciisa.net.Login;
+import cl.ciisa.tableModel.User;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,12 +57,23 @@ public class LoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 
+	private DBHelpers db;
+	//login net
+	private Login log;
+	private int successNet;
+	private User user;
+	protected static final String PREFS_NAME = "AppAccounts";
+	private SimpleDateFormat sdf;
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_login);
-
+		
+		this.listAccounts();
+		
+		db = new DBHelpers(this);
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
@@ -86,13 +104,29 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
+		sdf = new SimpleDateFormat("d/MM/yyyy");
 	}
 
+	protected void onStart(){
+		super.onStart();
+		this.listAccounts();
+		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
+	}
+	
+	public void listAccounts(){
+		SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
+		boolean connect = settings.getBoolean("connect", false);
+		if(connect){
+			Intent myIntent = new Intent(LoginActivity.this,ListAccountActivity.class);
+			this.startActivity(myIntent);
+		}
+		
 	}
 
 	/**
@@ -133,14 +167,14 @@ public class LoginActivity extends Activity {
 			focusView = mEmailView;
 			cancel = true;
 		} else if (!mEmail.contains("@")) {
-			Log.d("mensaje",getString(R.string.error_invalid_email));
+			Log.d("mensaje", getString(R.string.error_invalid_email));
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
 			cancel = true;
 		}
 
 		if (cancel) {
-			// There was an error; don't attempt login and focus the first
+;			// There was an error; don't attempt login and focus the first
 			// form field with an error.
 			focusView.requestFocus();
 		} else {
@@ -199,42 +233,55 @@ public class LoginActivity extends Activity {
 	 * the user.
 	 */
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
 
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
+			log = new Login(mEmail);
+			successNet = log.getLogin();
+			if(successNet == 0){
 				return false;
 			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
-
-			// TODO: register the new account here.
-			return true;
+			user = log.getUser();
+			return false;
 		}
 
 		@Override
 		protected void onPostExecute(final Boolean success) {
 			mAuthTask = null;
 			showProgress(false);
-
-			if (success) {
+			Log.d("success", String.valueOf(successNet));
+			if(successNet == 0){
+				Intent myIntent = new Intent(LoginActivity.this,RegisterActivity.class);
+				myIntent.putExtra("email", mEmail); 
+				LoginActivity.this.startActivity(myIntent);
+			}else if (mPassword.equals(user.getPass())){
+				/**
+				 * Agregando al usuario a la base de datos local
+				 * TODO realizar sincronizacion de las cuentas
+				 */
+				ContentValues addUser = new ContentValues();
+				addUser.put("id", user.getId());
+				addUser.put("name", user.getName());
+				addUser.put("email", user.getEmail());
+				addUser.put("pass", user.getPass());
+				addUser.put("phone", user.getPhone());
+				addUser.put("created", sdf.format(new Date()));
+				addUser.put("state", user.getState());
+				addUser.put("created", user.getCreated());
+				db.insertTAble("users", addUser);
+				SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putBoolean("connect",true);
+				editor.putInt("id", user.getId());
+				editor.commit();
 				Intent myIntent = new Intent(LoginActivity.this,ListAccountActivity.class);
 				LoginActivity.this.startActivity(myIntent);
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
+
 		}
 
 		@Override

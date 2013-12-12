@@ -3,45 +3,82 @@ package cl.ciisa.appaccounts;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import cl.ciisa.masterDB.DBHelpers;
+
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class AddActivity extends Activity {
 	
+	private Spinner typeSpinnerView;
 	private Button photo;
+	private Button typeViewButton;
+	private Button AddAccViewButton;
 	private ImageView image;
 	private Uri fileUri;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	public static final int MEDIA_TYPE_IMAGE = 1;
+	
+	protected static final String PREFS_NAME = "AppAccounts";
+	
+	
+	/**
+	 * Formulario de agregar tipos
+	 */
+	private Button addTypeButton;
+	private EditText nameTypeText;
+	private int id = 0;
 
-
-
+	/**
+	 * Database
+	 */
+	private DBHelpers db;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add);
+		SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
+		id = settings.getInt("id", 0);
+		Log.d("-------->", String.valueOf(id));
+		db = new DBHelpers(AddActivity.this);
+		
 		photo = (Button)findViewById(R.id.buttonPhotoView);
 		image = (ImageView) findViewById(R.id.imageViewPhoto);
+		typeViewButton = (Button) findViewById(R.id.buttonAddType);
+		AddAccViewButton = (Button) findViewById(R.id.buttonSaveAcc);
+		
+		this.updateSpinnerType();
 		this.addListener();
 		
 	}
 	
 	
 	private void addListener(){
+		/**
+		 * Boton para capturar foto
+		 */
 		photo.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -51,6 +88,46 @@ public class AddActivity extends Activity {
 				
 			    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 			    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			}
+		});
+		/**
+		 * Boton para agregar tipos de cuentas
+		 */
+		typeViewButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				final Dialog dialog = new Dialog(AddActivity.this);
+				dialog.setContentView(R.layout.dialog_type);
+				dialog.setTitle(R.string.addType);
+				addTypeButton = (Button) dialog.findViewById(R.id.buttonAddTypeDialog);
+				nameTypeText = (EditText)dialog.findViewById(R.id.editTextNameTypeDialog);
+				
+				addTypeButton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						ContentValues cv = new ContentValues();
+						cv.put("name",nameTypeText.getText().toString());
+						cv.put("state", 1);
+						cv.put("id_user", id);
+						cv.put("synchronized", 0);
+						db.insertTAble("type_account", cv);
+						AddActivity.this.updateSpinnerType();
+						dialog.dismiss();
+					}
+				});
+				dialog.show();
+				
+				
+			}
+		});
+		AddAccViewButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
 			}
 		});
 	}
@@ -111,6 +188,17 @@ public class AddActivity extends Activity {
 			image.setImageURI(fileUri);
 		}
 		
+	}
+	public void updateSpinnerType(){
+		String[] field = {"name"}; 
+		List<String> result = db.selectAllOne("type_account", "", field, "");
+		if(result.size() > 0){
+			
+			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, result);
+			typeSpinnerView = (Spinner) findViewById(R.id.spinnerType);
+			typeSpinnerView.setAdapter(spinnerArrayAdapter);
+			
+		}
 	}
 	
 	@Override
