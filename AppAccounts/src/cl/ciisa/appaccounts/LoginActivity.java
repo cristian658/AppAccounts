@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import cl.ciisa.masterDB.DBHelpers;
+import cl.ciisa.net.HttpConnect;
 import cl.ciisa.net.Login;
+import cl.ciisa.tableModel.Capital;
 import cl.ciisa.tableModel.User;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -62,6 +65,7 @@ public class LoginActivity extends Activity {
 	private Login log;
 	private int successNet;
 	private User user;
+	private Capital capital;
 	protected static final String PREFS_NAME = "AppAccounts";
 	private SimpleDateFormat sdf;
 	
@@ -104,7 +108,7 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
-		sdf = new SimpleDateFormat("d/MM/yyyy");
+		sdf = new SimpleDateFormat("dd/MM/yyyy");
 	}
 
 	protected void onStart(){
@@ -112,13 +116,13 @@ public class LoginActivity extends Activity {
 		this.listAccounts();
 		
 	}
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
-	
+	*/
 	public void listAccounts(){
 		SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
 		boolean connect = settings.getBoolean("connect", false);
@@ -183,7 +187,14 @@ public class LoginActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+			HttpConnect httpConn = new HttpConnect();
+			if(httpConn.checkConex(this)){
+				mAuthTask.execute((Void) null);
+			}else{
+				showProgress(false);
+				Toast t = Toast.makeText(this, "No hay conexión a internet, Verifique su Conexión",Toast.LENGTH_LONG);
+				t.show();
+			}
 		}
 	}
 
@@ -243,6 +254,7 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 			user = log.getUser();
+			capital = log.getCapital();
 			return false;
 		}
 
@@ -258,7 +270,6 @@ public class LoginActivity extends Activity {
 			}else if (mPassword.equals(user.getPass())){
 				/**
 				 * Agregando al usuario a la base de datos local
-				 * TODO realizar sincronizacion de las cuentas
 				 */
 				ContentValues addUser = new ContentValues();
 				addUser.put("id", user.getId());
@@ -266,14 +277,24 @@ public class LoginActivity extends Activity {
 				addUser.put("email", user.getEmail());
 				addUser.put("pass", user.getPass());
 				addUser.put("phone", user.getPhone());
-				addUser.put("created", sdf.format(new Date()));
+				addUser.put("created", user.getCreated());
 				addUser.put("state", user.getState());
 				addUser.put("created", user.getCreated());
 				db.insertTAble("users", addUser);
+				ContentValues addCapital = new ContentValues();
+				addCapital.put("id", capital.getId());
+				addCapital.put("id_user", capital.getId_user());
+				addCapital.put("state", capital.getState());
+				addCapital.put("synchronized", capital.getSynchronize());
+				addCapital.put("tot_capital", capital.getTot_capital());
+				addCapital.put("created", capital.getCreated());
+				db.insertTAble("capital", addCapital);
+				
 				SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putBoolean("connect",true);
 				editor.putInt("id", user.getId());
+				editor.putInt("id_capital", capital.getId());
 				editor.commit();
 				Intent myIntent = new Intent(LoginActivity.this,ListAccountActivity.class);
 				LoginActivity.this.startActivity(myIntent);

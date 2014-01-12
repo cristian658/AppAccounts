@@ -7,10 +7,20 @@
     <string name="title_activity_list_account">ListAccountActivity</string>
     <string name="add">Add Accounts</string>
     <string name="title_activity_add">AddActivity</string>
-    <string name="name">Name</string>
     <string name="photo">Photo</string>
     <string name="type">Type</string>
     <string name="value">Value</string>
     <string name="cost">Cost</string>
+    <string name="addType">Add Type</string>
+    <string name="save">Save</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="email">E-mail</string>
+    <string name="title_activity_details_account">DetailsAccount</string>
+    <string name="description">Description</string>
+    <string name="capital">Capital</string>
+    <string name="close">Close Session</string>
+    <string name="share">Share</string>
 
 </resources>

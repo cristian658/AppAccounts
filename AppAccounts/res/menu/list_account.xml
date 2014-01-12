@@ -1,9 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+    <item android:id="@+id/itemAdd" android:orderInCategory="1" android:title="@string/add" android:showAsAction="never"></item>
+    <item android:id="@+id/itemClose" android:title="@string/close" android:orderInCategory="3" android:showAsAction="never"></item>
+    <item android:id="@+id/itemSinC" android:orderInCategory="2" android:title="Sincronizar"></item>
 
 </menu>

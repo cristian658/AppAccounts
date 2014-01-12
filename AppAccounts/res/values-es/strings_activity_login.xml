@@ -5,6 +5,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Contraseña</string>
+    <string name="prompt_repassword">Repetir Contraseña</string>
     <string name="action_sign_in_register"><b>Ingresar</b> o Registrarse</string>
     <string name="action_sign_in_short">Registrarse</string>
     <string name="action_forgot_password">Recuperar contraseña</string>
