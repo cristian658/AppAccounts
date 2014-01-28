@@ -8,7 +8,16 @@
 package cl.ciisa.appaccounts;
 
 public final class R {
+    public static final class array {
+        public static final int nav_options=0x7f040000;
+    }
     public static final class attr {
+    }
+    public static final class color {
+        public static final int dark=0x7f050000;
+        public static final int light=0x7f050001;
+        public static final int purpure=0x7f050003;
+        public static final int whiteColor=0x7f050002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -18,123 +27,144 @@ public final class R {
     
  Default screen margins, per the Android Design guidelines. 
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int drawer_shadow=0x7f020000;
+        public static final int home=0x7f020001;
+        public static final int ic_drawer=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int EditTextCapital=0x7f08002b;
-        public static final int EditTextPass2=0x7f080028;
-        public static final int TextNameView=0x7f080002;
-        public static final int TextView02=0x7f08002a;
-        public static final int TextView6=0x7f080012;
-        public static final int TextViewType=0x7f080013;
-        public static final int aaa=0x7f080015;
-        public static final int action_forgot_password=0x7f080035;
-        public static final int action_settings=0x7f080031;
-        public static final int buttonAddShare=0x7f08002e;
-        public static final int buttonAddType=0x7f080004;
-        public static final int buttonAddTypeDialog=0x7f080030;
-        public static final int buttonPhotoView=0x7f080009;
-        public static final int buttonSaveAcc=0x7f08000b;
-        public static final int buttonSaveReg=0x7f08002c;
-        public static final int editTextCost=0x7f080008;
-        public static final int editTextDescription=0x7f080006;
-        public static final int editTextMailReg=0x7f080026;
-        public static final int editTextName=0x7f080001;
-        public static final int editTextNameReg=0x7f080025;
-        public static final int editTextPassReg=0x7f080027;
-        public static final int editTextPhoneReg=0x7f080029;
-        public static final int editTextShare=0x7f08002d;
-        public static final int editTextType=0x7f08002f;
-        public static final int email=0x7f080021;
-        public static final int gastado=0x7f08001d;
-        public static final int gastadoText=0x7f08001c;
-        public static final int imageView1=0x7f080014;
-        public static final int imageViewPhoto=0x7f08000a;
-        public static final int itemAdd=0x7f080032;
-        public static final int itemClose=0x7f080033;
-        public static final int itemSinC=0x7f080034;
-        public static final int listMonto=0x7f080017;
-        public static final int listMonto1=0x7f080018;
-        public static final int listMonto2=0x7f08001b;
-        public static final int listview=0x7f080016;
-        public static final int login=0x7f080023;
-        public static final int login_form=0x7f080020;
-        public static final int login_status=0x7f08001e;
-        public static final int login_status_message=0x7f08001f;
-        public static final int password=0x7f080022;
-        public static final int saldo=0x7f08001a;
-        public static final int saldoText=0x7f080019;
-        public static final int sign_in_button=0x7f080024;
-        public static final int spinnerType=0x7f080003;
-        public static final int textView1=0x7f080007;
-        public static final int textView2=0x7f080000;
-        public static final int textView3=0x7f080005;
-        public static final int textView4=0x7f08000e;
-        public static final int textView5=0x7f080010;
-        public static final int textViewCost=0x7f08000f;
-        public static final int textViewCreated=0x7f080011;
-        public static final int textViewDescription=0x7f08000d;
-        public static final int textViewName=0x7f08000c;
+        public static final int EditTextCapital=0x7f0a002f;
+        public static final int EditTextPass2=0x7f0a002c;
+        public static final int RelativeLayout1=0x7f0a0031;
+        public static final int TextNameView=0x7f0a0003;
+        public static final int TextView01=0x7f0a0000;
+        public static final int TextView02=0x7f0a002e;
+        public static final int TextView6=0x7f0a0013;
+        public static final int TextViewType=0x7f0a0014;
+        public static final int action_forgot_password=0x7f0a003d;
+        public static final int action_settings=0x7f0a0039;
+        public static final int button1=0x7f0a0032;
+        public static final int buttonAddShare=0x7f0a0035;
+        public static final int buttonAddType=0x7f0a0005;
+        public static final int buttonAddTypeDialog=0x7f0a0037;
+        public static final int buttonPhotoView=0x7f0a000a;
+        public static final int buttonSaveAcc=0x7f0a000c;
+        public static final int buttonSaveReg=0x7f0a0030;
+        public static final int content_frame=0x7f0a0017;
+        public static final int drawer_layout=0x7f0a0016;
+        public static final int editTextCost=0x7f0a0009;
+        public static final int editTextDescription=0x7f0a0007;
+        public static final int editTextMailReg=0x7f0a002a;
+        public static final int editTextName=0x7f0a0002;
+        public static final int editTextNameReg=0x7f0a0029;
+        public static final int editTextPassReg=0x7f0a002b;
+        public static final int editTextPhoneReg=0x7f0a002d;
+        public static final int editTextShare=0x7f0a0034;
+        public static final int editTextType=0x7f0a0036;
+        public static final int email=0x7f0a0025;
+        public static final int gastado=0x7f0a0021;
+        public static final int gastadoText=0x7f0a0020;
+        public static final int imageView1=0x7f0a0015;
+        public static final int imageViewPhoto=0x7f0a000b;
+        public static final int itemAdd=0x7f0a003a;
+        public static final int itemClose=0x7f0a003b;
+        public static final int itemSinC=0x7f0a003c;
+        public static final int left_drawer=0x7f0a0018;
+        public static final int listMonto=0x7f0a001b;
+        public static final int listMonto1=0x7f0a001c;
+        public static final int listMonto2=0x7f0a001f;
+        public static final int listView2=0x7f0a0033;
+        public static final int listview1=0x7f0a001a;
+        public static final int login=0x7f0a0027;
+        public static final int login_form=0x7f0a0024;
+        public static final int login_status=0x7f0a0022;
+        public static final int login_status_message=0x7f0a0023;
+        public static final int main=0x7f0a0019;
+        public static final int password=0x7f0a0026;
+        public static final int saldo=0x7f0a001e;
+        public static final int saldoText=0x7f0a001d;
+        public static final int sign_in_button=0x7f0a0028;
+        public static final int spinnerType=0x7f0a0004;
+        public static final int textName=0x7f0a0008;
+        public static final int textPrice=0x7f0a0006;
+        public static final int textType=0x7f0a0001;
+        public static final int textView4=0x7f0a000f;
+        public static final int textView5=0x7f0a0011;
+        public static final int textViewCost=0x7f0a0010;
+        public static final int textViewCreated=0x7f0a0012;
+        public static final int textViewDescription=0x7f0a000e;
+        public static final int textViewName=0x7f0a000d;
+        public static final int view_list_account=0x7f0a0038;
     }
     public static final class layout {
         public static final int activity_add=0x7f030000;
         public static final int activity_details_account=0x7f030001;
         public static final int activity_list_account=0x7f030002;
-        public static final int activity_login=0x7f030003;
-        public static final int activity_main=0x7f030004;
-        public static final int activity_register=0x7f030005;
-        public static final int dialog_share=0x7f030006;
-        public static final int dialog_type=0x7f030007;
+        public static final int activity_list_account_=0x7f030003;
+        public static final int activity_login=0x7f030004;
+        public static final int activity_main=0x7f030005;
+        public static final int activity_register=0x7f030006;
+        public static final int frgmnt_home=0x7f030007;
+        public static final int frgmnt_list_account=0x7f030008;
+        public static final int view_dialog_share=0x7f030009;
+        public static final int view_dialog_type=0x7f03000a;
+        public static final int view_list_account=0x7f03000b;
     }
     public static final class menu {
-        public static final int add=0x7f070000;
-        public static final int details_account=0x7f070001;
-        public static final int list_account=0x7f070002;
-        public static final int login=0x7f070003;
-        public static final int main=0x7f070004;
-        public static final int register=0x7f070005;
+        public static final int add=0x7f090000;
+        public static final int details_account=0x7f090001;
+        public static final int list_account=0x7f090002;
+        public static final int login=0x7f090003;
+        public static final int main=0x7f090004;
+        public static final int register=0x7f090005;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f05001b;
-        public static final int action_settings=0x7f050001;
-        public static final int action_sign_in_register=0x7f050019;
-        public static final int action_sign_in_short=0x7f05001a;
-        public static final int add=0x7f050004;
-        public static final int addType=0x7f05000a;
-        public static final int app_name=0x7f050000;
-        public static final int capital=0x7f050012;
-        public static final int close=0x7f050013;
-        public static final int cost=0x7f050009;
-        public static final int description=0x7f050011;
-        public static final int email=0x7f05000f;
-        public static final int error_field_required=0x7f050020;
-        public static final int error_incorrect_password=0x7f05001f;
-        public static final int error_invalid_email=0x7f05001d;
-        public static final int error_invalid_password=0x7f05001e;
-        public static final int hello_world=0x7f050002;
-        public static final int login_progress_signing_in=0x7f05001c;
-        public static final int name=0x7f05000d;
-        public static final int phone=0x7f05000e;
-        public static final int photo=0x7f050006;
+        public static final int action_forgot_password=0x7f07001f;
+        public static final int action_settings=0x7f070001;
+        public static final int action_sign_in_register=0x7f07001d;
+        public static final int action_sign_in_short=0x7f07001e;
+        public static final int action_websearch=0x7f070017;
+        public static final int add=0x7f070004;
+        public static final int addType=0x7f07000a;
+        public static final int app_name=0x7f070000;
+        public static final int app_not_available=0x7f070018;
+        public static final int capital=0x7f070012;
+        public static final int close=0x7f070013;
+        public static final int cost=0x7f070009;
+        public static final int description=0x7f070011;
+        public static final int drawer_close=0x7f070016;
+        /**  drawer 
+         */
+        public static final int drawer_open=0x7f070015;
+        public static final int email=0x7f07000f;
+        public static final int error_field_required=0x7f070024;
+        public static final int error_incorrect_password=0x7f070023;
+        public static final int error_invalid_email=0x7f070021;
+        public static final int error_invalid_password=0x7f070022;
+        public static final int hello_world=0x7f070002;
+        public static final int login_progress_signing_in=0x7f070020;
+        public static final int name=0x7f07000d;
+        public static final int phone=0x7f07000e;
+        public static final int photo=0x7f070006;
         /**  Strings related to login 
  Strings related to login 
          */
-        public static final int prompt_email=0x7f050016;
-        public static final int prompt_password=0x7f050017;
-        public static final int prompt_repassword=0x7f050018;
-        public static final int save=0x7f05000b;
-        public static final int share=0x7f050014;
-        public static final int title_activity_add=0x7f050005;
-        public static final int title_activity_details_account=0x7f050010;
-        public static final int title_activity_list_account=0x7f050003;
-        public static final int title_activity_login=0x7f050015;
-        public static final int title_activity_register=0x7f05000c;
-        public static final int type=0x7f050007;
-        public static final int value=0x7f050008;
+        public static final int prompt_email=0x7f07001a;
+        public static final int prompt_password=0x7f07001b;
+        public static final int prompt_repassword=0x7f07001c;
+        public static final int save=0x7f07000b;
+        public static final int share=0x7f070014;
+        public static final int title_activity_add=0x7f070005;
+        public static final int title_activity_details_account=0x7f070010;
+        public static final int title_activity_list_account=0x7f070003;
+        public static final int title_activity_login=0x7f070019;
+        public static final int title_activity_register=0x7f07000c;
+        public static final int type=0x7f070007;
+        public static final int value=0x7f070008;
     }
     public static final class style {
         /** 
@@ -156,13 +186,13 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
-        public static final int LoginFormContainer=0x7f060002;
+        public static final int AppTheme=0x7f080001;
+        public static final int LoginFormContainer=0x7f080002;
     }
 }

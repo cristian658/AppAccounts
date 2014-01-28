@@ -69,6 +69,9 @@ public class LoginActivity extends Activity {
 	protected static final String PREFS_NAME = "AppAccounts";
 	private SimpleDateFormat sdf;
 	
+	//public static int id_usr=0; 
+	//public static int id_capt=0;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -271,30 +274,39 @@ public class LoginActivity extends Activity {
 				/**
 				 * Agregando al usuario a la base de datos local
 				 */
-				ContentValues addUser = new ContentValues();
-				addUser.put("id", user.getId());
-				addUser.put("name", user.getName());
-				addUser.put("email", user.getEmail());
-				addUser.put("pass", user.getPass());
-				addUser.put("phone", user.getPhone());
-				addUser.put("created", user.getCreated());
-				addUser.put("state", user.getState());
-				addUser.put("created", user.getCreated());
-				db.insertTAble("users", addUser);
-				ContentValues addCapital = new ContentValues();
-				addCapital.put("id", capital.getId());
-				addCapital.put("id_user", capital.getId_user());
-				addCapital.put("state", capital.getState());
-				addCapital.put("synchronized", capital.getSynchronize());
-				addCapital.put("tot_capital", capital.getTot_capital());
-				addCapital.put("created", capital.getCreated());
-				db.insertTAble("capital", addCapital);
+				
+				String[] rows = { "id" };
+				List<String> capitals = db.FindOne("users", "email = '" + user.getEmail()+"'",rows,"");
+				int id = Integer.parseInt(capitals.get(0));
+				if(id==0){ //Carlos Fica -> esta validación era necesaria ya que siempre que inicia sesión ingresa aquí y da un error por que se trata de insertar un valor que ya está en la base de datos local
+					ContentValues addUser = new ContentValues();
+					addUser.put("id", user.getId());
+					addUser.put("name", user.getName());
+					addUser.put("email", user.getEmail());
+					addUser.put("pass", user.getPass());
+					addUser.put("phone", user.getPhone());
+					addUser.put("created", user.getCreated());
+					addUser.put("state", user.getState());
+					addUser.put("created", user.getCreated());
+					db.insertTAble("users", addUser);
+					ContentValues addCapital = new ContentValues();
+					addCapital.put("id", capital.getId());
+					addCapital.put("id_user", capital.getId_user());
+					addCapital.put("state", capital.getState());
+					addCapital.put("synchronized", capital.getSynchronize());
+					addCapital.put("tot_capital", capital.getTot_capital());
+					addCapital.put("created", capital.getCreated());
+					db.insertTAble("capital", addCapital);
+				}
+				
 				
 				SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putBoolean("connect",true);
-				editor.putInt("id", user.getId());
-				editor.putInt("id_capital", capital.getId());
+				editor.putInt("id_us", user.getId());
+			    //id_usr=user.getId();
+				//id_capt=capital.getId();
+				editor.putInt("id_cap", capital.getId());
 				editor.commit();
 				Intent myIntent = new Intent(LoginActivity.this,ListAccountActivity.class);
 				LoginActivity.this.startActivity(myIntent);

@@ -70,9 +70,8 @@ public class AddActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add);
-		SharedPreferences settings = getSharedPreferences(
-				AddActivity.PREFS_NAME, 0);
-		id_user = settings.getInt("id", 0);
+		SharedPreferences settings = getSharedPreferences(AddActivity.PREFS_NAME, 0);
+		id_user = settings.getInt("id_us", 0);
 		db = new DBHelpers(AddActivity.this);
 
 		photo = (Button) findViewById(R.id.buttonPhotoView);
@@ -115,7 +114,7 @@ public class AddActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				final Dialog dialog = new Dialog(AddActivity.this);
-				dialog.setContentView(R.layout.dialog_type);
+				dialog.setContentView(R.layout.view_dialog_type);
 				dialog.setTitle(R.string.addType);
 				addTypeButton = (Button) dialog
 						.findViewById(R.id.buttonAddTypeDialog);
@@ -147,6 +146,7 @@ public class AddActivity extends Activity {
 				/**
 				 * Imagen
 				 */
+				//validar si es null ya que se cae la app
 				ContentValues cv = new ContentValues();
 				cv.put("name_img", namePhoto);
 				cv.put("path", mediaStorageDir.getAbsolutePath()+File.separator+namePhoto);
