@@ -54,7 +54,7 @@ import android.widget.Toast;
 //drawer
 public class ListAccountActivity extends Activity {
 	private LinearLayout lny;
-	private LinearLayout lnyHijo;
+	private LinearLayout lnyHijo; 
 	
 	protected ListView lstv;
 	protected TextView txtv;

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListAccountAdapter extends BaseAdapter{
-    protected Activity activity;
+    protected Activity activity; 
     protected ArrayList<ListAccount> items;
     
     public ListAccountAdapter(Context cnt, ArrayList<ListAccount> items){

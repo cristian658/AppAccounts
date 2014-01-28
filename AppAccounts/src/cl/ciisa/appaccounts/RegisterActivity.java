@@ -28,7 +28,7 @@ public class RegisterActivity extends Activity {
 
 	private EditText nameView;
 	private EditText mailView;
-	private EditText passwordView;
+	private EditText passwordView; 
 	private EditText phoneView;
 	private EditText capitalView;
 	private Button saveView;

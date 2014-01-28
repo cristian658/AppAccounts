@@ -1,5 +1,5 @@
 package cl.ciisa.tableModel;
-
+ 
 public class ListAccount {
     protected long id;
     protected String name;

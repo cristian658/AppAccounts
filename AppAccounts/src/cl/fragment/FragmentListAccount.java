@@ -5,7 +5,7 @@
  * @author cfica
  *
  */
-package cl.fragment;
+package cl.fragment; 
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package cl.fragment;
+package cl.fragment; 
 
 import cl.ciisa.appaccounts.R;
 import android.app.Fragment;

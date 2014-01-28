@@ -32,7 +32,7 @@ import android.widget.Toast;
 public class AddActivity extends Activity {
 
 	private EditText nameAccountsView;
-	private EditText descriptionView;
+	private EditText descriptionView; 
 	private EditText costView;
 	private Spinner typeSpinnerView;
 	private Button photo;
