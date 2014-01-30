@@ -20,8 +20,29 @@
             android:text="Listado de Cuentas"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="25dp" />
-
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/dark" >
+
+        <Spinner
+            android:id="@+id/period_list_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Personalizado"
+            android:textSize="14dp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -43,67 +64,60 @@
         android:layout_height="1dip"
         android:background="#ffffff" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/listMonto"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
+        android:background="@color/dark"
         android:gravity="bottom|center"
         android:orientation="horizontal" >
 
-        <LinearLayout
-            android:id="@+id/listMonto1"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/saldo"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="vertical" >
+            android:layout_alignLeft="@+id/saldoText"
+            android:layout_below="@+id/saldoText"
+            android:text="$300000"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/saldoText"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Saldo"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/saldo"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="$300000"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dip"
-            android:layout_height="fill_parent"
-            android:background="#ffffff" />
-
-        <LinearLayout
-            android:id="@+id/listMonto2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/gastadoText"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/saldo"
+            android:layout_alignTop="@+id/saldoText"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:text="Gastado"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/whiteColor"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/gastadoText"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Gastado"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/gastado"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/saldo"
+            android:layout_alignLeft="@+id/gastadoText"
+            android:layout_below="@+id/gastadoText"
+            android:gravity="center"
+            android:text="$38358"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/gastado"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="$38358"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/saldoText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="23dp"
+            android:layout_toLeftOf="@+id/gastadoText"
+            android:text="Saldo"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

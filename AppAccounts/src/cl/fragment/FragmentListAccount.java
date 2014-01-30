@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import cl.ciisa.appaccounts.DetailsAccountActivity;
 import cl.ciisa.appaccounts.ListAccountActivity;
@@ -70,6 +71,11 @@ public class FragmentListAccount extends Fragment {
 	        v = inflater.inflate(R.layout.frgmnt_list_account, container, false);
 	        //TextView tv = (TextView) v.findViewById(R.id.tv_fragment);
 	        //tv.setText(mText);
+	         
+	         Spinner spinner = (Spinner) v.findViewById(R.id.period_list_account);
+		     ArrayAdapter<CharSequence> adaptr = ArrayAdapter.createFromResource(ListAccountActivity.cnt, R.array.planets_array, android.R.layout.simple_spinner_item);
+		     adaptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		     spinner.setAdapter(adaptr);
 			
 			String[] rows = { "tot_capital" };
 			List<String> capitals = ListAccountActivity.dh.FindOne("capital", "id = " + idcapital,rows, "");

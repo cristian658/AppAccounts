@@ -148,9 +148,11 @@ public class AddActivity extends Activity {
 				 */
 				//validar si es null ya que se cae la app
 				ContentValues cv = new ContentValues();
-				cv.put("name_img", namePhoto);
-				cv.put("path", mediaStorageDir.getAbsolutePath()+File.separator+namePhoto);
-				cv.put("state",1);
+				//cv.put("name_img", namePhoto);
+				cv.put("name_img", "ACCOUNTS_20140126_010500.jpg");
+				//cv.put("path", mediaStorageDir.getAbsolutePath()+File.separator+namePhoto);
+				cv.put("path", "/storage/sdcard0/Pictures/AppAccounts/ACCOUNTS_20140126_010500.jpg");
+				cv.put("state",1); 
 				cv.put("synchronized", 0);
 				Long id_imagen = db.insertTAble("img_account", cv);
 				/**
