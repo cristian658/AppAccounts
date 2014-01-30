@@ -14,6 +14,8 @@ import cl.ciisa.net.RegisterUser;
 import cl.ciisa.tableModel.User;
 import cl.fragment.FragmentHome;
 import cl.fragment.FragmentListAccount;
+import cl.fragment.FragmentProjection;
+import cl.fragment.FragmentReport;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -52,7 +54,7 @@ import android.widget.Toast;
 
 //public class ListAccountActivity extends Activity {
 //drawer
-public class ListAccountActivity extends Activity {
+public class MainFragmentActivity extends Activity {
 	private LinearLayout lny;
 	private LinearLayout lnyHijo; 
 	
@@ -88,7 +90,7 @@ public class ListAccountActivity extends Activity {
 
 		dh = new DBHelpers(this);
 		//---
-		SharedPreferences settings = getSharedPreferences(ListAccountActivity.PREFS_NAME, 0);
+		SharedPreferences settings = getSharedPreferences(MainFragmentActivity.PREFS_NAME, 0);
 		id_user = settings.getInt("id_us", 0);
 		id_capital = settings.getInt("id_cap", 0);
 			
@@ -122,7 +124,8 @@ public class ListAccountActivity extends Activity {
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
-            public void onDrawerClosed(View view) {
+           
+        	public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -143,7 +146,6 @@ public class ListAccountActivity extends Activity {
     
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content
-        // view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(navList);
         //menu.findItem(R.id.action_search).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
@@ -187,51 +189,73 @@ public class ListAccountActivity extends Activity {
    }
    
    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-		       long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		   selectItem(position);
 		}
 	}
 	
 	/** Swaps fragments in the main content view */
 	private void selectItem(int position){
-		// Get text from resources
 		mTitle = getResources().getStringArray(R.array.nav_options)[position];
+		String opt=convertCharSequenceString(mTitle);
 		
-		// Create a new fragment and specify the option to show based on
-		Fragment fragment = new FragmentListAccount();
-		Bundle args = new Bundle();
-		args.putString(FragmentListAccount.KEY_TEXT, mTitle.toString());
-		fragment.setArguments(args);
-		
-		FragmentListAccount.iduser=id_user;
-		FragmentListAccount.idcapital=id_capital;
-		//args.putInt(FragmentListAccount.ID_USER,id_user);
-		//fragment.setArguments(args);
-		
-		//args.putInt(FragmentListAccount.ID_CAPITAL,id_capital);
-		//fragment.setArguments(args);
-		
-		
-		
-		// Insert the fragment by replacing any existing fragment
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-		
-		// Highlight the selected item, update the title, and close the drawer
+		if(opt.equals("Home"))
+			drawerHome();	
+        if(opt.equals("Informes"))
+        	drawerReport();     
+        if(opt.equals("Cuentas"))
+        	drawerListAccount();    
+        if(opt.equals("Proyección"))
+        	drawerProjection();
+
 		navList.setItemChecked(position, true);
 		getActionBar().setTitle(mTitle);
 		mDrawerLayout.closeDrawer(navList);
 	}
 	
-	
-	private void drawerHome(){
-		Fragment fragment = new FragmentHome();
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-	}
+	//=============================LIST DRAWERLAYOUT========================================
+		private void drawerHome(){
+			Fragment fragment = new FragmentHome();
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		}
+		
+		private void drawerProjection(){
+			Fragment fragment = new FragmentProjection();
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		}
+		
+		private void drawerReport(){
+			Fragment fragment = new FragmentReport();
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		}
+		
+		private void drawerListAccount(){
+			Fragment fragment = new FragmentListAccount();
+			Bundle args = new Bundle();
+			args.putString(FragmentListAccount.KEY_TEXT, mTitle.toString());
+			fragment.setArguments(args);
+			
+			FragmentListAccount.iduser=id_user;
+			FragmentListAccount.idcapital=id_capital;
+			//args.putInt(FragmentListAccount.ID_USER,id_user);
+			//fragment.setArguments(args);
+			
+			//args.putInt(FragmentListAccount.ID_CAPITAL,id_capital);
+			//fragment.setArguments(args);
+			
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		}
 //--------------------------------------------------------------------------------------------------------------------
-
+		
+	private String convertCharSequenceString(CharSequence nm){
+		final StringBuilder sb = new StringBuilder(nm.length());
+		sb.append(nm);
+		return sb.toString();
+	}
 
 	
 	@Override
@@ -241,23 +265,6 @@ public class ListAccountActivity extends Activity {
 		return true;
 	}
 
-	/*
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.itemAdd:
-			this.addAccount();
-			return true;
-		case R.id.itemClose:
-			this.close();
-		case R.id.itemSinC:
-			this.sincronizar();
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-	*/
 	
 	public void sincronizar(){
 		Toast t = Toast.makeText(this, "Sincronizando Datos...", Toast.LENGTH_LONG);
@@ -277,15 +284,13 @@ public class ListAccountActivity extends Activity {
 	}
 
 	public void close() {
-		SharedPreferences settings = getSharedPreferences(
-				LoginActivity.PREFS_NAME, 0);
+		SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.clear();
 		editor.commit();
 		//dh.deleteAll("");
-		Intent myIntent = new Intent(ListAccountActivity.this,
-				LoginActivity.class);
-		ListAccountActivity.this.startActivity(myIntent);
+		Intent myIntent = new Intent(MainFragmentActivity.this,LoginActivity.class);
+		MainFragmentActivity.this.startActivity(myIntent);
 	}
 
 	class ConsultUser extends AsyncTask<String, String, String> {
@@ -293,7 +298,7 @@ public class ListAccountActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			pDialog = new ProgressDialog(ListAccountActivity.this);
+			pDialog = new ProgressDialog(MainFragmentActivity.this);
 			pDialog.setMessage("Compartiendo...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
@@ -308,12 +313,12 @@ public class ListAccountActivity extends Activity {
 			ContentValues cvShared = new ContentValues();
 			cvShared.put("id_user", id_user);
 			cvShared.put("id_user_share", u.getId());
-			cvShared.put("id_account", ListAccountActivity.this
-					.getIdListview(ListAccountActivity.position));
+			cvShared.put("id_account", MainFragmentActivity.this
+					.getIdListview(MainFragmentActivity.position));
 			cvShared.put("mail", emailShareText.getText().toString());
 			cvShared.put("created", sdf.format(new Date()));
 			cvShared.put("synchronized", 0);
-			ListAccountActivity.this.dh.insertTAble("share_account", cvShared);
+			MainFragmentActivity.this.dh.insertTAble("share_account", cvShared);
 			// finish();
 			//ListAccountActivity.this.list.notifyDataSetChanged();
 			return "";

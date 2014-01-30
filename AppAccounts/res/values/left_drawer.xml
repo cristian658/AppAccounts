@@ -2,10 +2,10 @@
 <resources>
  
     <string-array name="nav_options">
-        <item>Cuentas</item>
-        <item>Tipos de Cuentas</item>
+        <item>Home</item>
+        <item>Cuentas</item>       
         <item>Informes</item>
-        <item>Salir</item>
+        <item>Proyección</item>       
     </string-array>
  
 </resources>

@@ -130,7 +130,7 @@ public class LoginActivity extends Activity {
 		SharedPreferences settings = getSharedPreferences(LoginActivity.PREFS_NAME, 0);
 		boolean connect = settings.getBoolean("connect", false);
 		if(connect){
-			Intent myIntent = new Intent(LoginActivity.this,ListAccountActivity.class);
+			Intent myIntent = new Intent(LoginActivity.this,MainFragmentActivity.class);
 			this.startActivity(myIntent);
 		}
 		
@@ -308,7 +308,7 @@ public class LoginActivity extends Activity {
 				//id_capt=capital.getId();
 				editor.putInt("id_cap", capital.getId());
 				editor.commit();
-				Intent myIntent = new Intent(LoginActivity.this,ListAccountActivity.class);
+				Intent myIntent = new Intent(LoginActivity.this,MainFragmentActivity.class);
 				LoginActivity.this.startActivity(myIntent);
 			} else {
 				mPasswordView.setError(getString(R.string.error_incorrect_password));

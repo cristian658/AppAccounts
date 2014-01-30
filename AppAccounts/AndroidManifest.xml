@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cl.ciisa.appaccounts.ListAccountActivity"
+            android:name="cl.ciisa.appaccounts.MainFragmentActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

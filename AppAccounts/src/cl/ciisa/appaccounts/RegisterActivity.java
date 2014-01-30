@@ -160,7 +160,7 @@ public class RegisterActivity extends Activity {
 				editor.putInt("id", user.getId());
 				editor.putInt("id_capital", capital.getId());
 				editor.commit();
-				Intent myIntent = new Intent(RegisterActivity.this,ListAccountActivity.class);
+				Intent myIntent = new Intent(RegisterActivity.this,MainFragmentActivity.class);
 				RegisterActivity.this.startActivity(myIntent);
 				finish();
 			} else {

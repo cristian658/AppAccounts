@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="planets_array">
+	        <item>Filtro por Mes</item>
+	        <item>Filtro por Mes Pasado</item>
+	        <item>Filtro por Últimos 3 meses</item>
+	        <item>Filtro por Últimos 6 meses</item>
+	        <item>Filtro por Últimos 12 meses</item>
+    </string-array>
+</resources>

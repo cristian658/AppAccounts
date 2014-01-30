@@ -28,9 +28,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import cl.ciisa.appaccounts.DetailsAccountActivity;
-import cl.ciisa.appaccounts.ListAccountActivity;
+import cl.ciisa.appaccounts.MainFragmentActivity;
 import cl.ciisa.appaccounts.R;
 import cl.ciisa.masterDB.DBHelpers;
 import cl.ciisa.tableModel.ListAccount;
@@ -70,9 +71,14 @@ public class FragmentListAccount extends Fragment {
 	        v = inflater.inflate(R.layout.frgmnt_list_account, container, false);
 	        //TextView tv = (TextView) v.findViewById(R.id.tv_fragment);
 	        //tv.setText(mText);
+	         
+	         Spinner spinner = (Spinner) v.findViewById(R.id.period_list_account);
+		     ArrayAdapter<CharSequence> adaptr = ArrayAdapter.createFromResource(MainFragmentActivity.cnt, R.array.planets_array, android.R.layout.simple_spinner_item);
+		     adaptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		     spinner.setAdapter(adaptr);
 			
 			String[] rows = { "tot_capital" };
-			List<String> capitals = ListAccountActivity.dh.FindOne("capital", "id = " + idcapital,rows, "");
+			List<String> capitals = MainFragmentActivity.dh.FindOne("capital", "id = " + idcapital,rows, "");
 			totalCapital = Integer.parseInt(capitals.get(0));
 
 			gastado = (TextView) v.findViewById(R.id.gastado);
@@ -81,7 +87,7 @@ public class FragmentListAccount extends Fragment {
 			emailShareText = (EditText) v.findViewById(R.id.editTextShare);
 			lstv = (ListView) v.findViewById(R.id.listView2);      
 	        ArrayList<ListAccount> itemsCompra = obtenerItems();    
-	        ListAccountAdapter adapter = new ListAccountAdapter(ListAccountActivity.cnt, itemsCompra);       
+	        ListAccountAdapter adapter = new ListAccountAdapter(MainFragmentActivity.cnt, itemsCompra);       
 	        lstv.setAdapter(adapter);
 	        
 			addListenerButton();
@@ -102,13 +108,13 @@ public class FragmentListAccount extends Fragment {
 					+ "INNER JOIN type_account ON type_account.id=accounts.id_type "
 					+ "WHERE users.id = " + iduser + " ORDER BY accounts.id ASC";
 			Log.d("sql", sql);
-			ArrayList<ArrayList<String>> names = ListAccountActivity.dh.selectJoin(sql, column);
+			ArrayList<ArrayList<String>> names = MainFragmentActivity.dh.selectJoin(sql, column);
 
 			String[] title = new String[names.size()];
 			id_accounts = new Integer[names.size()];
 			for (int i = 0; i < names.size(); i++) {
 				String[] row = { "mail" };
-				List<String> share = ListAccountActivity.dh.FindOne("share_account", "id_account = " + names.get(i).get(0).toString(),
+				List<String> share = MainFragmentActivity.dh.FindOne("share_account", "id_account = " + names.get(i).get(0).toString(),
 						row, "");
 				Log.d("cantidad", String.valueOf(share.size()));
 				//String mail = share.get(0);
@@ -142,9 +148,9 @@ public class FragmentListAccount extends Fragment {
 				public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 					int id_account = getIdListview(position);
-					Intent myintent = new Intent(ListAccountActivity.cnt,DetailsAccountActivity.class);
+					Intent myintent = new Intent(MainFragmentActivity.cnt,DetailsAccountActivity.class);
 					myintent.putExtra("key", String.valueOf(id_account));
-					ListAccountActivity.cnt.startActivity(myintent);
+					MainFragmentActivity.cnt.startActivity(myintent);
 				}
 			});
 			/*
