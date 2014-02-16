@@ -121,7 +121,7 @@ public class DBHelpers {
 			db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, id_relation INTEGER, name TEXT, phone TEXT, email TEXT, user TEXT, pass TEXT, created TEXT, state INTEGER)");
 			db.execSQL("CREATE TABLE capital(id INTEGER PRIMARY KEY AUTOINCREMENT,id_user INTEGER, tot_capital INTEGER, created TEXT, updated_cap TEXT, state INTEGER, synchronized INTEGER)");
 			db.execSQL("CREATE TABLE img_account(id INTEGER PRIMARY KEY AUTOINCREMENT, name_img TEXT, path TEXT, state INTEGER, synchronized INTEGER)");
-			db.execSQL("CREATE TABLE accounts(id INTEGER PRIMARY KEY AUTOINCREMENT, id_user INTEGER, id_capital INTEGER, id_type INTEGER, id_img_account INTEGER,id_share_account INTEGER, title TEXT, description TEXT, cost_account INTEGER, created TEXT, updated_acc TEXT, state INTEGER, synchronized INTEGER)");
+			db.execSQL("CREATE TABLE accounts(id INTEGER PRIMARY KEY AUTOINCREMENT, id_user INTEGER, id_capital INTEGER, id_type INTEGER, id_img_account INTEGER,id_share_account INTEGER, title TEXT, description TEXT, cost_account INTEGER, typ_accnt TEXT, typ_dt_start TEXT, typ_cuot TEXT, typ_val_cout TEXT,created TEXT, updated_acc TEXT, state INTEGER, synchronized INTEGER)");
 			db.execSQL("CREATE TABLE share_account(id INTEGER PRIMARY KEY AUTOINCREMENT, id_user INTEGER, id_user_share INTEGER,id_account INTEGER, mail TEXT, created TEXT, synchronized INTEGER)");
 		    Log.d("Info","Created table success");
 		}

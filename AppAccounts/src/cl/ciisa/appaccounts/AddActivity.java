@@ -22,11 +22,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddActivity extends Activity {
@@ -39,7 +45,10 @@ public class AddActivity extends Activity {
 	private Button typeViewButton;
 	private Button AddAccViewButton;
 	private ImageView image;
+	private RadioGroup rdg_typ_account;
+	private String[] ini_fixed_account=new String[4];
 	private Uri fileUri;
+	private RadioButton radioButton;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	
@@ -81,14 +90,17 @@ public class AddActivity extends Activity {
 		nameAccountsView = (EditText) findViewById(R.id.editTextName);
 		descriptionView = (EditText) findViewById(R.id.editTextDescription);
 		costView = (EditText) findViewById(R.id.editTextCost);
+		rdg_typ_account=(RadioGroup) findViewById(R.id.radioGroupaccount);
 		this.updateSpinnerType();
 		this.addListener();
-		sdf = new SimpleDateFormat("d/MM/yyyy");
+		sdf = new SimpleDateFormat("d/MM/yyyy H:m:s");
 		String[] rows = {"id"};
 		List<String> capitals = db.FindOne("capital", "id_user = "+id_user, rows,"");
 		id_capital = Integer.parseInt(capitals.get(0));
-
 	}
+	
+	
+	
 
 	private void addListener() {
 		/**
@@ -106,6 +118,97 @@ public class AddActivity extends Activity {
 				startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 			}
 		});
+		
+		rdg_typ_account.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+	        @Override
+	        public void onCheckedChanged(RadioGroup group, int checkedId) { 
+	            radioButton = (RadioButton) findViewById(checkedId);
+	            final Dialog dialog = new Dialog(AddActivity.this);
+				dialog.setContentView(R.layout.view_dialog_accountfixed);
+				final Button button_ok;
+				final Button button_cancel;
+				dialog.setTitle("Cuenta Fija");
+				
+			    TextView edt0= (TextView) dialog.findViewById(R.id.text_month_ini);
+			    TextView edt1= (TextView) dialog.findViewById(R.id.text_year_ini);
+			    TextView edt2=(TextView) dialog.findViewById(R.id.text_cuot);
+			    TextView edt3=(TextView) dialog.findViewById(R.id.text_val);
+				if(ini_fixed_account[0]==null && ini_fixed_account[1]==null){
+					edt0.setText("Enero / ");
+					edt1.setText("Año Actual");
+					edt2.setText("0");
+					edt3.setText("0");
+				}else{
+					edt0.setText(ini_fixed_account[0]+" / ");
+					edt1.setText(ini_fixed_account[1]);
+					edt2.setText(ini_fixed_account[2]);
+					edt3.setText(ini_fixed_account[3]);
+				}
+				
+				//add month     
+				     final Spinner spnnmonthini=(Spinner) dialog.findViewById(R.id.monthini);
+				     ArrayAdapter<CharSequence> adpmonthini=ArrayAdapter.createFromResource(AddActivity.this, R.array.month_list, android.R.layout.simple_spinner_item);
+				     adpmonthini.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				     spnnmonthini.setAdapter(adpmonthini);			     
+				     /*spnnmonthini.setOnItemSelectedListener(new OnItemSelectedListener(){
+				            @Override
+				            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+				              // TODO Auto-generated method stub
+				            }	
+				            @Override
+				            public void onNothingSelected(AdapterView<?> arg0) {
+				              // TODO Auto-generated method stub
+				            }
+				    });*/
+				     
+					 final Spinner spnnyearini=(Spinner) dialog.findViewById(R.id.yearini);
+				     ArrayAdapter<CharSequence> adpyearini=ArrayAdapter.createFromResource(AddActivity.this, R.array.year_list, android.R.layout.simple_spinner_item);
+				     adpyearini.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				     spnnyearini.setAdapter(adpyearini);
+				
+
+				
+				if(radioButton.getText().equals("Fija")){
+					button_ok = (Button) dialog.findViewById(R.id.button_ok);
+					button_cancel = (Button) dialog.findViewById(R.id.button_cancel);
+					final EditText edt00 = (EditText) dialog.findViewById(R.id.editTextCuot);
+					final EditText edt01 = (EditText) dialog.findViewById(R.id.editTextVal);
+				   //nameTypeText = (EditText) dialog.findViewById(R.id.editTextType);
+	               //Toast.makeText(AddActivity.this, "" + radioButton.getText(), 2000).show(); 
+					button_ok.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v){
+							//private String[] ini_fixed_account,end_fixed_account;	
+							ini_fixed_account[0]=spnnmonthini.getSelectedItem().toString();
+							ini_fixed_account[1]=spnnyearini.getSelectedItem().toString();
+							ini_fixed_account[2]=edt00.getText().toString();
+							ini_fixed_account[3]=edt01.getText().toString();
+							//Toast.makeText(AddActivity.this,"Finaliza: "+end_fixed_account[0]+" Año: "+end_fixed_account[1], 2000).show();						
+							dialog.dismiss();
+						}
+					});
+					
+					button_cancel.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							//ContentValues cv = new ContentValues();
+							//cv.put("name", nameTypeText.getText().toString());
+							//cv.put("state", 1);
+							//cv.put("id_user", id_user);
+							//cv.put("synchronized", 0);
+							//db.insertTAble("type_account", cv);
+							//AddActivity.this.updateSpinnerType();
+							dialog.dismiss();
+						}
+					});
+					
+			    	dialog.show();
+				}else{
+					dialog.hide(); 
+				}
+	        }
+		});
+		
 		/**
 		 * Boton para agregar tipos de cuentas
 		 */
@@ -116,10 +219,8 @@ public class AddActivity extends Activity {
 				final Dialog dialog = new Dialog(AddActivity.this);
 				dialog.setContentView(R.layout.view_dialog_type);
 				dialog.setTitle(R.string.addType);
-				addTypeButton = (Button) dialog
-						.findViewById(R.id.buttonAddTypeDialog);
-				nameTypeText = (EditText) dialog
-						.findViewById(R.id.editTextType);
+				addTypeButton = (Button) dialog.findViewById(R.id.buttonAddTypeDialog);
+				nameTypeText = (EditText) dialog.findViewById(R.id.editTextType);
 
 				addTypeButton.setOnClickListener(new OnClickListener() {
 
@@ -135,10 +236,12 @@ public class AddActivity extends Activity {
 						dialog.dismiss();
 					}
 				});
+				
 				dialog.show();
 
 			}
 		});
+		
 		AddAccViewButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -167,6 +270,18 @@ public class AddActivity extends Activity {
 				cv.put("title", nameAccountsView.getText().toString());
 				cv.put("description", descriptionView.getText().toString());
 				cv.put("cost_account", costView.getText().toString());
+				//add type account
+				if(radioButton.getText().equals("Fija")){
+					if(ini_fixed_account[0]!=null && ini_fixed_account[1]!=null){
+						cv.put("typ_accnt",radioButton.getText().toString());
+						cv.put("typ_dt_start",ini_fixed_account[0]+"/"+ini_fixed_account[1]); 
+						cv.put("typ_cuot",ini_fixed_account[2]); 
+						cv.put("typ_val_cout",ini_fixed_account[3]); 
+					}
+				}else{
+					cv.put("typ_accnt","Variable");
+				}		
+				
 				cv.put("created", sdf.format(new Date()));
 				cv.put("id_capital", id_capital);
 				cv.put("state", 1);

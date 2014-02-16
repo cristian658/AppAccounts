@@ -26,62 +26,97 @@
                 android:textSize="25dp" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/RelativeLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/textType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:ems="10" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/textType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/editTextName"
+                android:layout_alignBottom="@+id/editTextName"
+                android:layout_toLeftOf="@+id/editTextName"
+                android:text="@string/name"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/RelativeLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+
+            <Spinner
+                android:id="@+id/spinnerType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@+id/TextNameView"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/TextNameView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="44dp"
                 android:text="@string/type"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+        <RelativeLayout
+            android:id="@+id/RelativeLayout03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-                <Spinner
-                    android:id="@+id/spinnerType"
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="Tipo de Cuenta"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupaccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView1" >
+
+                <RadioButton
+                    android:id="@+id/radio_variable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:checked="true"
+                    android:text="Variable" />
 
-                <Button
-                    android:id="@+id/buttonAddType"
-                    style="?android:attr/buttonStyleSmall"
+                <RadioButton
+                    android:id="@+id/radio_fixed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/addType" />
+                    android:text="Fija" />
+            </RadioGroup>
+        </RelativeLayout>
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout 
+        <RelativeLayout
+            android:id="@+id/RelativeLayout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
@@ -90,43 +125,49 @@
                 android:id="@+id/textPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 android:text="@string/description"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <EditText
                 android:id="@+id/editTextDescription"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:ems="10"
                 android:inputType="textMultiLine" />
+        </RelativeLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/RelativeLayout7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cost"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-           
 
             <EditText
                 android:id="@+id/editTextCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number" >
 
                 <requestFocus />
             </EditText>
-        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/editTextCost"
+                android:text="@string/cost"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,9 +183,8 @@
             <ImageView
                 android:id="@+id/imageViewPhoto"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_launcher" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -152,14 +192,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
+            <Button
+                android:id="@+id/buttonSaveAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save" />
+
+            <Button
+                android:id="@+id/buttonAddType"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addType" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonSaveAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save" />
-
     </LinearLayout>
 
 </LinearLayout>

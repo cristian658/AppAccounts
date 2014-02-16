@@ -76,10 +76,6 @@ public class FragmentListAccount extends Fragment {
 		     ArrayAdapter<CharSequence> adaptr = ArrayAdapter.createFromResource(MainFragmentActivity.cnt, R.array.planets_array, android.R.layout.simple_spinner_item);
 		     adaptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		     spinner.setAdapter(adaptr);
-			
-			String[] rows = { "tot_capital" };
-			List<String> capitals = MainFragmentActivity.dh.FindOne("capital", "id = " + idcapital,rows, "");
-			totalCapital = Integer.parseInt(capitals.get(0));
 
 			gastado = (TextView) v.findViewById(R.id.gastado);
 			saldo = (TextView) v.findViewById(R.id.saldo);
@@ -114,8 +110,7 @@ public class FragmentListAccount extends Fragment {
 			id_accounts = new Integer[names.size()];
 			for (int i = 0; i < names.size(); i++) {
 				String[] row = { "mail" };
-				List<String> share = MainFragmentActivity.dh.FindOne("share_account", "id_account = " + names.get(i).get(0).toString(),
-						row, "");
+				List<String> share = MainFragmentActivity.dh.FindOne("share_account", "id_account = " + names.get(i).get(0).toString(),row, "");
 				Log.d("cantidad", String.valueOf(share.size()));
 				//String mail = share.get(0);
 				if(share.size() <1){
@@ -131,7 +126,13 @@ public class FragmentListAccount extends Fragment {
 
 				id_accounts[i] = Integer.parseInt(names.get(i).get(0));
 			}
+			
 			Log.d("total gastado", String.valueOf(totalGastado));
+			
+			String[] rows = { "tot_capital" };
+			List<String> capitals = MainFragmentActivity.dh.FindOne("capital", "id = " + idcapital,rows, "");
+			totalCapital = Integer.parseInt(capitals.get(0));
+			
 			totalCapital = totalCapital - totalGastado;
 			saldo.setText("$" + totalCapital);
 			gastado.setText("$" + totalGastado);
