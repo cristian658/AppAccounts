@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -49,6 +51,7 @@ public class FragmentListAccount extends Fragment {
 		protected TextView saldo;
 		protected TextView gastado;
 		protected ListView lstv;
+		protected Button btn_start,btn_end;
 		
 		public int totalCapital = 0;
 		public Integer totalGastado = 0; // saldo gastado
@@ -78,6 +81,8 @@ public class FragmentListAccount extends Fragment {
 		     spinner.setAdapter(adaptr);
 
 			gastado = (TextView) v.findViewById(R.id.gastado);
+			btn_start = (Button) v.findViewById(R.id.btn_start);
+			btn_end = (Button) v.findViewById(R.id.btn_end);
 			saldo = (TextView) v.findViewById(R.id.saldo);
 			addShareButton = (Button) v.findViewById(R.id.buttonAddShare);
 			emailShareText = (EditText) v.findViewById(R.id.editTextShare);
@@ -152,6 +157,26 @@ public class FragmentListAccount extends Fragment {
 					Intent myintent = new Intent(MainFragmentActivity.cnt,DetailsAccountActivity.class);
 					myintent.putExtra("key", String.valueOf(id_account));
 					MainFragmentActivity.cnt.startActivity(myintent);
+				}
+			});
+			
+			btn_start.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v){
+					final Dialog diag = new Dialog(MainFragmentActivity.cnt);
+					diag.setContentView(R.layout.view_dialog_date_start);
+					diag.setTitle("Fecha Desde");
+					diag.show();
+				}
+			});
+			
+			btn_end.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v){
+					final Dialog diag = new Dialog(MainFragmentActivity.cnt);
+					diag.setContentView(R.layout.view_dialog_date_end);
+					diag.setTitle("Fecha Hasta");
+					diag.show();
 				}
 			});
 			/*

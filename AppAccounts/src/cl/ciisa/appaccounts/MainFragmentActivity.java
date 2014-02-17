@@ -86,7 +86,7 @@ public class MainFragmentActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list_account);
+		setContentView(R.layout.activity_main_fragment);
 
 		dh = new DBHelpers(this);
 		//---

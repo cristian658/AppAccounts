@@ -170,7 +170,7 @@ public class AddActivity extends Activity {
 				
 				if(radioButton.getText().equals("Fija")){
 					button_ok = (Button) dialog.findViewById(R.id.button_ok);
-					button_cancel = (Button) dialog.findViewById(R.id.button_cancel);
+					button_cancel = (Button) dialog.findViewById(R.id.btn_end);
 					final EditText edt00 = (EditText) dialog.findViewById(R.id.editTextCuot);
 					final EditText edt01 = (EditText) dialog.findViewById(R.id.editTextVal);
 				   //nameTypeText = (EditText) dialog.findViewById(R.id.editTextType);
